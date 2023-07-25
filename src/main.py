@@ -42,7 +42,7 @@ def main_loop(app_data: AppData) -> None:
                 app_data.done = True
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                app_data.automata.board.check_collision()
+                app_data.automata.board.pencil()
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
