@@ -30,3 +30,7 @@ Implementation of a general Cellular Automata engine in python.
 * Pulsar
 
 ---
+
+#### resources
+##### font
+* FFFoward - 001fonts.com/fff-forward-font.html
