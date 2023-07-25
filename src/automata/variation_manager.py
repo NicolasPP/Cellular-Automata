@@ -4,6 +4,7 @@ import json
 from src.automata.cell import Cell
 from src.automata.cell import CellState
 from src.automata.board import Board
+from src.utils.callback_vars import IntCB
 from src.config import BIRTH
 from src.config import DATA
 from src.config import JSON_FILE_MODE
@@ -21,7 +22,11 @@ class AutomataVariation:
 
 class VariationManager:
     variations: list[AutomataVariation] = []
-    index: int = 0
+    index: IntCB = IntCB(0)
+
+    @staticmethod
+    def get_index() -> IntCB:
+        return VariationManager.index
 
     @staticmethod
     def load_rules() -> None:
@@ -36,11 +41,11 @@ class VariationManager:
     @staticmethod
     def get_current_variation() -> AutomataVariation:
         if len(VariationManager.variations) == 0: raise Exception("no rules loaded")
-        return VariationManager.variations[VariationManager.index % len(VariationManager.variations)]
+        return VariationManager.variations[VariationManager.get_index().get() % len(VariationManager.variations)]
 
     @staticmethod
     def cycle(direction) -> None:
-        VariationManager.index += (1 * direction)
+        VariationManager.index.set(VariationManager.get_index().get() + (1 * direction))
 
     @staticmethod
     def get_cells_to_change(board: Board) -> list[Cell]:
