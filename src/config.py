@@ -5,7 +5,7 @@ IT_DELAY: float = 0.1  # seconds
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"
-RULES_JSON: str = "data/rules.json"
+RULES_JSON: str = "data/variations.json"
 DATA: str = "Data"
 NAME: str = "Name"
 BIRTH: str = "Birth"

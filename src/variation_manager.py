@@ -13,42 +13,43 @@ from config import JSON_FILE_MODE
 
 
 @dataclasses.dataclass
-class Rule:
+class AutomataVariation:
     name: str
     birth: set[int]
     survival: set[int]
 
 
-class Rules:
-    rules: list[Rule] = []
+class VariationManager:
+    variations: list[AutomataVariation] = []
     index: int = 0
 
     @staticmethod
     def load_rules() -> None:
-        with open(RULES_JSON, JSON_FILE_MODE) as rules_file:
-            rules = json.load(rules_file)
+        with open(RULES_JSON, JSON_FILE_MODE) as variation_file:
+            variations = json.load(variation_file)
 
-        for rule in rules[DATA]:
-            print(rule[NAME])
-            Rules.rules.append(Rule(rule[NAME], set(rule[BIRTH]), set(rule[SURVIVAL])))
+        for variation in variations[DATA]:
+            VariationManager.variations.append(
+                AutomataVariation(variation[NAME], set(variation[BIRTH]), set(variation[SURVIVAL]))
+            )
 
-        print(Rules.get_current_rule().name)
+        print(VariationManager.get_current_variation().name)
 
     @staticmethod
-    def get_current_rule() -> Rule:
-        if len(Rules.rules) == 0: raise Exception("no rules loaded")
-        return Rules.rules[Rules.index % len(Rules.rules)]
+    def get_current_variation() -> AutomataVariation:
+        if len(VariationManager.variations) == 0: raise Exception("no rules loaded")
+        return VariationManager.variations[VariationManager.index % len(VariationManager.variations)]
 
     @staticmethod
     def cycle(direction) -> None:
-        Rules.index += (1 * direction)
-        print(Rules.get_current_rule().name)
+        VariationManager.index += (1 * direction)
+        print(VariationManager.get_current_variation().name)
 
     @staticmethod
     def get_cells_to_change(board: list[list[Cell]]) -> list[Cell]:
         cells_to_change: list[Cell] = []
         possible_neighbour_count: set[int] = set(range(9))
-        rule = Rules.get_current_rule()
+        variation = VariationManager.get_current_variation()
 
         def check_rule(desired_values: set[int], alive_count: int, current_cell: Cell) -> None:
             for value in desired_values:
@@ -59,10 +60,10 @@ class Rules:
         for cell, alive_neighbours in board_it(board):
 
             if cell.state == CellState.DEAD:
-                check_rule(rule.birth, alive_neighbours, cell)
+                check_rule(variation.birth, alive_neighbours, cell)
 
             elif cell.state == CellState.ALIVE:
-                check_rule(possible_neighbour_count - rule.survival, alive_neighbours, cell)
+                check_rule(possible_neighbour_count - variation.survival, alive_neighbours, cell)
 
         return cells_to_change
 

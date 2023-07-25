@@ -3,10 +3,10 @@ import typing
 
 import pygame
 
-from config import IT_DELAY
-from rules import Rules
 from cell import Cell
 from cell import CellState
+from config import IT_DELAY
+from variation_manager import VariationManager
 
 
 class Accumulator:
@@ -30,9 +30,8 @@ class CellularAutomata:
         columns: int = window_width // cell_size
         rows: int = window_height // cell_size
 
-        possible_neighbours: list[tuple[int, int]] = [
-            (0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)
-        ]
+        possible_neighbours: list[tuple[int, int]] = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1),
+                                                      (-1, -1)]
 
         for row in range(rows):
             board_row: list[Cell] = []
@@ -55,7 +54,7 @@ class CellularAutomata:
         return board
 
     def __init__(self, window_width: int, window_height: int, cell_size: int) -> None:
-        Rules.load_rules()
+        VariationManager.load_rules()
         self.width: int = window_width
         self.height: int = window_height
         self.cell_size: int = cell_size
@@ -86,7 +85,7 @@ class CellularAutomata:
         if not self.iterate_board: return
         if not acc.delay(delta_time): return
 
-        cells_to_change: list[Cell] = Rules.get_cells_to_change(self.board)
+        cells_to_change: list[Cell] = VariationManager.get_cells_to_change(self.board)
 
         for cell in cells_to_change:
             if cell.state is CellState.ALIVE:

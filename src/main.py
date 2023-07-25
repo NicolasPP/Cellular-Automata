@@ -1,11 +1,12 @@
-import pygame
 import time
 
-from config import WINDOW_WIDTH
-from config import WINDOW_HEIGHT
-from config import CELL_SIZE
+import pygame
+
 from cellular_automata import CellularAutomata
-from rules import Rules
+from config import CELL_SIZE
+from config import WINDOW_HEIGHT
+from config import WINDOW_WIDTH
+from variation_manager import VariationManager
 
 done: bool = False
 automata_manager: CellularAutomata = CellularAutomata(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE)
@@ -22,7 +23,8 @@ while not done:
 
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT: done = True
+        if event.type == pygame.QUIT:
+            done = True
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             automata_manager.check_collision()
@@ -35,10 +37,10 @@ while not done:
                 automata_manager.randomise()
 
             if event.key == pygame.K_RIGHT:
-                Rules.cycle(1)
+                VariationManager.cycle(1)
 
             if event.key == pygame.K_LEFT:
-                Rules.cycle(-1)
+                VariationManager.cycle(-1)
 
     pygame.display.get_surface().fill("black")
     automata_manager.draw()
