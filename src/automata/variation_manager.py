@@ -33,8 +33,6 @@ class VariationManager:
                 AutomataVariation(variation[NAME], set(variation[BIRTH]), set(variation[SURVIVAL]))
             )
 
-        print(VariationManager.get_current_variation().name)
-
     @staticmethod
     def get_current_variation() -> AutomataVariation:
         if len(VariationManager.variations) == 0: raise Exception("no rules loaded")
@@ -43,7 +41,6 @@ class VariationManager:
     @staticmethod
     def cycle(direction) -> None:
         VariationManager.index += (1 * direction)
-        print(VariationManager.get_current_variation().name)
 
     @staticmethod
     def get_cells_to_change(board: Board) -> list[Cell]:
