@@ -63,14 +63,11 @@ class CellularAutomata:
             if event.button == MOUSECLICK_LEFT:
                 self.gui_manager.cycle_buttons.handle_left_click()
                 self.gui_manager.iteration_speed.handle_left_click(self.accumulator)
+                self.gui_manager.board_control.handle_left_click(self.rando, self.reset)
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 self.iterate_switch()
-
-            if event.key == pygame.K_r:
-                self.board.randomise()
-                self.iteration_count = 0
 
             if event.key == pygame.K_RIGHT:
                 VariationManager.cycle(1)
@@ -78,6 +75,10 @@ class CellularAutomata:
             if event.key == pygame.K_LEFT:
                 VariationManager.cycle(-1)
 
-            if event.key == pygame.K_c:
-                self.board.clear()
-                self.iteration_count = 0
+    def reset(self) -> None:
+        self.board.clear()
+        self.iteration_count = 0
+
+    def rando(self) -> None:
+        self.board.randomise()
+        self.iteration_count = 0

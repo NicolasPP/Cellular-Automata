@@ -1,6 +1,6 @@
 CELL_SIZE: int = 11
 WINDOW_HEIGHT: int = 900
-WINDOW_WIDTH: int = 980
+WINDOW_WIDTH: int = 900
 IT_DELAY: float = 0.1  # seconds
 BOARD_SIZE: tuple[int, int] = 700, 700
 BACKGROUND: tuple[int, int, int] = 27, 32, 39
@@ -12,10 +12,13 @@ DEFAULT_PAD: int = 15
 RIGHT_ARROW: str = ">"
 LEFT_ARROW: str = "<"
 MOUSECLICK_LEFT: int = 1
+CONTROL_FONT_SIZE: int = 25
 HOVER_COLOR: tuple[int, int, int] = 255, 255, 255
 HOVER_ALPHA: int = 20
 CELL_HOVER_ALPHA: int = 100
 SPEED_STEP: float = 1.1
+RANDO: str = "rando"
+RESET: str = "reset"
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"

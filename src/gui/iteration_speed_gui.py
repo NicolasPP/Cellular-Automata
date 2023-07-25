@@ -25,7 +25,7 @@ class IterationSpeedGui:
         self.board_rect: pygame.rect.Rect = board_rect
         self.font: pygame.font.Font = pygame.font.Font(BLOCK_FONT, TITLE_FONT_SIZE)
         self.font.set_italic(True)
-        self.speed_render: pygame.surface.Surface = self.font.render(f"{1 / IT_DELAY}t/s", False, ALIVE_COLOR)
+        self.speed_render: pygame.surface.Surface = self.font.render(f"{1 / IT_DELAY} t/s", False, ALIVE_COLOR)
         self.font.set_italic(False)
         self.left_arrow: pygame.surface.Surface = self.font.render(LEFT_ARROW, False, ALIVE_COLOR)
         self.right_arrow: pygame.surface.Surface = self.font.render(RIGHT_ARROW, False, ALIVE_COLOR)
@@ -82,4 +82,4 @@ class IterationSpeedGui:
 
     def update_speed(self, it_delay: float) -> None:
         self.font.set_italic(True)
-        self.speed_render = self.font.render(f"{round(1 / it_delay, 2)}t/s", False, ALIVE_COLOR)
+        self.speed_render = self.font.render(f"{round(1 / it_delay, 2)} t/s", False, ALIVE_COLOR)
