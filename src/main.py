@@ -41,24 +41,7 @@ def main_loop(app_data: AppData) -> None:
             if event.type == pygame.QUIT:
                 app_data.done = True
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                app_data.automata.board.pencil()
-
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    app_data.automata.iterate_switch()
-
-                if event.key == pygame.K_r:
-                    app_data.automata.board.randomise()
-
-                if event.key == pygame.K_RIGHT:
-                    VariationManager.cycle(1)
-
-                if event.key == pygame.K_LEFT:
-                    VariationManager.cycle(-1)
-
-                if event.key == pygame.K_c:
-                    app_data.automata.board.clear()
+            app_data.automata.handle_user_input(event)
 
         pygame.display.get_surface().fill(BACKGROUND)
         app_data.automata.draw()

@@ -48,3 +48,23 @@ class CellularAutomata:
 
             elif cell.state is CellState.DEAD:
                 cell.set_state(CellState.ALIVE)
+
+    def handle_user_input(self, event: pygame.event.Event) -> None:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.board.pencil()
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.iterate_switch()
+
+            if event.key == pygame.K_r:
+                self.board.randomise()
+
+            if event.key == pygame.K_RIGHT:
+                VariationManager.cycle(1)
+
+            if event.key == pygame.K_LEFT:
+                VariationManager.cycle(-1)
+
+            if event.key == pygame.K_c:
+                self.board.clear()
