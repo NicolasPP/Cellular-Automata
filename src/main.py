@@ -5,6 +5,7 @@ import pygame
 
 from src.automata.cellular_automata import CellularAutomata
 from src.automata.variation_manager import VariationManager
+from src.config import BACKGROUND
 from src.config import BOARD_SIZE
 from src.config import CELL_SIZE
 from src.config import WINDOW_HEIGHT
@@ -55,7 +56,7 @@ def main_loop(app_data: AppData) -> None:
                 if event.key == pygame.K_LEFT:
                     VariationManager.cycle(-1)
 
-        pygame.display.get_surface().fill("black")
+        pygame.display.get_surface().fill(BACKGROUND)
         app_data.automata.draw()
         app_data.automata.iterate(app_data.delta_time)
         pygame.display.update()
