@@ -4,7 +4,7 @@ Implementation of a general Cellular Automata engine in python.
 
 ---
 
-#### supported configurations
+### supported variations 
 
 * game of life
 * high life
