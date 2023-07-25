@@ -1,9 +1,9 @@
 import dataclasses
 import json
-import typing
 
 from src.automata.cell import Cell
 from src.automata.cell import CellState
+from src.automata.board import Board
 from src.config import BIRTH
 from src.config import DATA
 from src.config import JSON_FILE_MODE
@@ -46,7 +46,7 @@ class VariationManager:
         print(VariationManager.get_current_variation().name)
 
     @staticmethod
-    def get_cells_to_change(board: list[list[Cell]]) -> list[Cell]:
+    def get_cells_to_change(board: Board) -> list[Cell]:
         cells_to_change: list[Cell] = []
         possible_neighbour_count: set[int] = set(range(9))
         variation = VariationManager.get_current_variation()
@@ -57,7 +57,8 @@ class VariationManager:
                     cells_to_change.append(current_cell)
                     return
 
-        for cell, alive_neighbours in board_it(board):
+        for cell in board.cells_gen():
+            alive_neighbours: int = board.get_alive_neighbours_count(cell)
 
             if cell.state == CellState.DEAD:
                 check_rule(variation.birth, alive_neighbours, cell)
@@ -66,18 +67,3 @@ class VariationManager:
                 check_rule(possible_neighbour_count - variation.survival, alive_neighbours, cell)
 
         return cells_to_change
-
-
-def get_alive_neighbours_count(cell: Cell, board: list[list[Cell]]) -> int:
-    alive_neighbour_count: int = 0
-    for index in cell.neighbours:
-        x, y = index
-        if board[y][x].state is CellState.ALIVE:
-            alive_neighbour_count += 1
-    return alive_neighbour_count
-
-
-def board_it(board: list[list[Cell]]) -> typing.Generator[tuple[Cell, int], None, None]:
-    for board_row in board:
-        for cell in board_row:
-            yield cell, get_alive_neighbours_count(cell, board)
