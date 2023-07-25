@@ -2,14 +2,14 @@ import dataclasses
 import json
 import typing
 
-from cell import Cell
-from cell import CellState
-from config import BIRTH
-from config import DATA
-from config import NAME
-from config import RULES_JSON
-from config import SURVIVAL
-from config import JSON_FILE_MODE
+from src.automata.cell import Cell
+from src.automata.cell import CellState
+from src.config import BIRTH
+from src.config import DATA
+from src.config import JSON_FILE_MODE
+from src.config import NAME
+from src.config import RULES_JSON
+from src.config import SURVIVAL
 
 
 @dataclasses.dataclass

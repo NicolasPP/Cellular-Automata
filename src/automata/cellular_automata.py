@@ -3,10 +3,10 @@ import typing
 
 import pygame
 
-from cell import Cell
-from cell import CellState
-from config import IT_DELAY
-from variation_manager import VariationManager
+from src.automata.cell import Cell
+from src.automata.cell import CellState
+from src.automata.variation_manager import VariationManager
+from src.config import IT_DELAY
 
 
 class Accumulator:

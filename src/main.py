@@ -2,11 +2,11 @@ import time
 
 import pygame
 
-from cellular_automata import CellularAutomata
-from config import CELL_SIZE
-from config import WINDOW_HEIGHT
-from config import WINDOW_WIDTH
-from variation_manager import VariationManager
+from src.automata.cellular_automata import CellularAutomata
+from src.automata.variation_manager import VariationManager
+from src.config import CELL_SIZE
+from src.config import WINDOW_HEIGHT
+from src.config import WINDOW_WIDTH
 
 done: bool = False
 automata_manager: CellularAutomata = CellularAutomata(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE)
