@@ -16,6 +16,20 @@ class CellularAutomata:
         self.board: Board = Board(board_rect, cell_size)
         self.iterate_board: bool = False
         self.gui_manager: GuiManager = GuiManager(self.board.rect)
+        self._iteration_count: int = 0
+
+    @property
+    def iteration_count(self) -> int:
+        return self._iteration_count
+
+    @iteration_count.setter
+    def iteration_count(self, count: int) -> None:
+        self._iteration_count = count
+        self.gui_manager.iteration_count.update_counter(count)
+
+    @iteration_count.deleter
+    def iteration_count(self) -> None:
+        del self._iteration_count
 
     def draw(self) -> None:
         self.board.draw()
@@ -28,6 +42,8 @@ class CellularAutomata:
     def iterate(self, delta_time: float, acc: Accumulator = Accumulator(IT_DELAY)) -> None:
         if not self.iterate_board: return
         if not acc.delay(delta_time): return
+
+        self.iteration_count += 1
 
         cells_to_change: list[Cell] = VariationManager.get_cells_to_change(self.board)
 
@@ -51,6 +67,7 @@ class CellularAutomata:
 
             if event.key == pygame.K_r:
                 self.board.randomise()
+                self.iteration_count = 0
 
             if event.key == pygame.K_RIGHT:
                 VariationManager.cycle(1)
@@ -60,3 +77,4 @@ class CellularAutomata:
 
             if event.key == pygame.K_c:
                 self.board.clear()
+                self.iteration_count = 0
