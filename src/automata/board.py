@@ -31,15 +31,7 @@ class Board:
                     if 0 <= (row + y_offset) < rows and 0 <= (col + x_offset) < cols:
                         neighbours.append((col + x_offset, row + y_offset))
 
-                grid_row.append(
-                    Cell(
-                        col * cell_size,
-                        row * cell_size,
-                        cell_size,
-                        neighbours,
-                        container
-                    )
-                )
+                grid_row.append(Cell(col * cell_size, row * cell_size, cell_size, neighbours, container))
 
             board_grid.append(grid_row)
 
@@ -66,13 +58,23 @@ class Board:
     def draw(self) -> None:
         for cell in self.cells_gen(): cell.draw()
 
-    def check_collision(self) -> None:
+    def check_collision(self) -> tuple[int, int] | None:
         x, y = pygame.mouse.get_pos()
         col: int = (y - self.rect.y) // self.cell_size
         row: int = (x - self.rect.x) // self.cell_size
-        if col >= self.container.get_height() // self.cell_size or \
-                row >= self.container.get_width() // self.cell_size:
-            return
+
+        guard_clauses: list[bool] = [col >= self.rect.height // self.cell_size,  # row_overflow
+                                     row >= self.rect.width // self.cell_size,  # col_overflow
+                                     x < self.rect.x or x >= (self.rect.x + self.rect.width),  # x_out_of_bounds
+                                     y < self.rect.y or y >= (self.rect.y + self.rect.height)]  # y_out_of_bounds
+        if any(guard_clauses): return None
+
+        return col, row
+
+    def pencil(self) -> None:
+        collide_index: tuple[int, int] | None = self.check_collision()
+        if collide_index is None: return
+        col, row = collide_index
         self.grid[col][row].set_state(CellState.ALIVE)
 
     def get_alive_neighbours_count(self, cell: Cell) -> int:
