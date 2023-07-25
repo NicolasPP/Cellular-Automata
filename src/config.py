@@ -6,7 +6,8 @@ BOARD_SIZE: tuple[int, int] = 700, 700
 BACKGROUND: tuple[int, int, int] = 27, 32, 39
 ALIVE_COLOR: tuple[int, int, int] = 170, 79, 30
 DEAD_COLOR: tuple[int, int, int] = 35, 40, 49
-
+BLOCK_FONT: str = "data/fonts/FFFFORWA.TTF"
+TITLE_FONT_SIZE: int = 30
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"

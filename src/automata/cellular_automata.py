@@ -5,6 +5,7 @@ from src.automata.cell import Cell
 from src.automata.cell import CellState
 from src.automata.variation_manager import VariationManager
 from src.config import IT_DELAY
+from src.gui.gui_manager import GuiManager
 
 
 class Accumulator:
@@ -25,9 +26,11 @@ class CellularAutomata:
         self.cell_size: int = cell_size
         self.board: Board = Board(board_rect, cell_size)
         self.iterate_board: bool = False
+        self.gui_manager: GuiManager = GuiManager(self.board.rect)
 
     def draw(self) -> None:
         self.board.draw()
+        self.gui_manager.draw()
         pygame.display.get_surface().blit(self.board.container, self.board.rect)
 
     def iterate_switch(self) -> None:
