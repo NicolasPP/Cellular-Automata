@@ -56,6 +56,9 @@ def main_loop(app_data: AppData) -> None:
                 if event.key == pygame.K_LEFT:
                     VariationManager.cycle(-1)
 
+                if event.key == pygame.K_c:
+                    app_data.automata.board.clear()
+
         pygame.display.get_surface().fill(BACKGROUND)
         app_data.automata.draw()
         app_data.automata.iterate(app_data.delta_time)
