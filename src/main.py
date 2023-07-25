@@ -22,6 +22,7 @@ class AppData:
 
 
 def init() -> AppData:
+    pygame.font.init()
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     VariationManager.load_rules()
     board_rect: pygame.rect.Rect = pygame.rect.Rect(0, 0, *BOARD_SIZE)
