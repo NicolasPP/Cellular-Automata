@@ -1,6 +1,7 @@
 # Cellular Automata
 
 Implementation of a general Cellular Automata engine in python.
+Visualization implemented using pygame
 
 ---
 
