@@ -12,11 +12,13 @@ from utils.accumulator import Accumulator
 
 class CellularAutomata:
     def __init__(self, board_rect: pygame.rect.Rect, cell_size: int) -> None:
+        self.accumulator: Accumulator = Accumulator(IT_DELAY)
         self.cell_size: int = cell_size
         self.board: Board = Board(board_rect, cell_size)
         self.iterate_board: bool = False
         self.gui_manager: GuiManager = GuiManager(self.board.rect)
         self._iteration_count: int = 0
+        self.iteration_delay: float = IT_DELAY
 
     @property
     def iteration_count(self) -> int:
@@ -39,9 +41,9 @@ class CellularAutomata:
     def iterate_switch(self) -> None:
         self.iterate_board = not self.iterate_board
 
-    def iterate(self, delta_time: float, acc: Accumulator = Accumulator(IT_DELAY)) -> None:
+    def iterate(self, delta_time: float) -> None:
         if not self.iterate_board: return
-        if not acc.delay(delta_time): return
+        if not self.accumulator.delay(delta_time): return
 
         self.iteration_count += 1
 
@@ -60,6 +62,7 @@ class CellularAutomata:
 
             if event.button == MOUSECLICK_LEFT:
                 self.gui_manager.cycle_buttons.handle_left_click()
+                self.gui_manager.iteration_speed.handle_left_click(self.accumulator)
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:

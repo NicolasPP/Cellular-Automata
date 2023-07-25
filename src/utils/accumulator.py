@@ -9,3 +9,10 @@ class Accumulator:
             self.value = 0
             return True
         return False
+
+    def set_limit(self, limit: float) -> None:
+        if limit <= 0: return
+        self.limit = limit
+
+    def get_limit(self) -> float:
+        return self.limit
