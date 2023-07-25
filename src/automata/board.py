@@ -6,6 +6,9 @@ import pygame
 from automata.cell import Cell
 from automata.cell import CellState
 from config import BACKGROUND
+from config import CELL_HOVER_ALPHA
+from config import ALIVE_COLOR
+from config import DEAD_COLOR
 
 BoardGrid: typing.TypeAlias = list[list[Cell]]
 
@@ -48,6 +51,8 @@ class Board:
         self.grid: list[list[Cell]] = Board.create_grid(self.container, cell_size)
         self.cell_size: int = cell_size
         self.rect: pygame.rect.Rect = rect
+        self.hover_surface: pygame.surface.Surface = pygame.surface.Surface((cell_size, cell_size))
+        self.hover_surface.set_alpha(CELL_HOVER_ALPHA)
 
     def cells_gen(self) -> typing.Generator[Cell, None, None]:
         for grid_row in self.grid:
@@ -63,6 +68,17 @@ class Board:
 
     def draw(self) -> None:
         for cell in self.cells_gen(): cell.draw()
+        collision_index: tuple[int, int] | None = self.check_collision()
+        if collision_index is None: return
+        col, row = collision_index
+        cell: Cell = self.grid[col][row]
+        if cell.state is CellState.ALIVE:
+            self.hover_surface.fill(DEAD_COLOR)
+
+        elif cell.state is CellState.DEAD:
+            self.hover_surface.fill(ALIVE_COLOR)
+
+        self.container.blit(self.hover_surface, cell.rect)
 
     def check_collision(self) -> tuple[int, int] | None:
         x, y = pygame.mouse.get_pos()

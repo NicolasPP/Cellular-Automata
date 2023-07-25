@@ -14,6 +14,7 @@ LEFT_ARROW: str = "<"
 MOUSECLICK_LEFT: int = 1
 HOVER_COLOR: tuple[int, int, int] = 255, 255, 255
 HOVER_ALPHA: int = 20
+CELL_HOVER_ALPHA: int = 100
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"
