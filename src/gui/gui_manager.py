@@ -1,6 +1,6 @@
 import pygame
 
-from src.gui.verification_title_gui import VariationTitleGui
+from src.gui.variation_title_gui import VariationTitleGui
 from src.gui.cycle_buttons_gui import CycleButtonsGui
 
 
