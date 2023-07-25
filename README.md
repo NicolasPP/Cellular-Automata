@@ -5,6 +5,12 @@ Visualization implemented using pygame
 
 ---
 
+### Requirements
+
+python 3.11
+
+---
+
 ### supported variations 
 
 * game of life
