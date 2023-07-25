@@ -7,19 +7,7 @@ from src.automata.variation_manager import VariationManager
 from src.config import IT_DELAY
 from src.config import MOUSECLICK_LEFT
 from src.gui.gui_manager import GuiManager
-
-
-class Accumulator:
-    def __init__(self, limit: float) -> None:
-        self.limit: float = limit
-        self.value: float = 0.0
-
-    def delay(self, delta_time: float) -> bool:
-        self.value += delta_time
-        if self.value >= self.limit:
-            self.value = 0
-            return True
-        return False
+from src.utils.accumulator import Accumulator
 
 
 class CellularAutomata:
@@ -55,7 +43,7 @@ class CellularAutomata:
             self.board.pencil()
 
             if event.button == MOUSECLICK_LEFT:
-                self.gui_manager.variation_title.handle_left_click()
+                self.gui_manager.cycle_buttons.handle_left_click()
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
@@ -66,11 +54,9 @@ class CellularAutomata:
 
             if event.key == pygame.K_RIGHT:
                 VariationManager.cycle(1)
-                self.gui_manager.variation_title.update_title()
 
             if event.key == pygame.K_LEFT:
                 VariationManager.cycle(-1)
-                self.gui_manager.variation_title.update_title()
 
             if event.key == pygame.K_c:
                 self.board.clear()
