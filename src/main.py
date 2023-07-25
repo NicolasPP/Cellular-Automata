@@ -3,13 +3,13 @@ import time
 
 import pygame
 
-from src.automata.cellular_automata import CellularAutomata
-from src.automata.variation_manager import VariationManager
-from src.config import BACKGROUND
-from src.config import BOARD_SIZE
-from src.config import CELL_SIZE
-from src.config import WINDOW_HEIGHT
-from src.config import WINDOW_WIDTH
+from automata.cellular_automata import CellularAutomata
+from automata.variation_manager import VariationManager
+from config import BACKGROUND
+from config import BOARD_SIZE
+from config import CELL_SIZE
+from config import WINDOW_HEIGHT
+from config import WINDOW_WIDTH
 
 
 @dataclasses.dataclass

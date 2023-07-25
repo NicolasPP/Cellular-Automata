@@ -1,16 +1,16 @@
 import dataclasses
 import json
 
-from src.automata.cell import Cell
-from src.automata.cell import CellState
-from src.automata.board import Board
-from src.utils.callback_vars import IntCB
-from src.config import BIRTH
-from src.config import DATA
-from src.config import JSON_FILE_MODE
-from src.config import NAME
-from src.config import RULES_JSON
-from src.config import SURVIVAL
+from automata.cell import Cell
+from automata.cell import CellState
+from automata.board import Board
+from utils.callback_vars import IntCB
+from config import BIRTH
+from config import DATA
+from config import JSON_FILE_MODE
+from config import NAME
+from config import RULES_JSON
+from config import SURVIVAL
 
 
 @dataclasses.dataclass

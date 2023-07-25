@@ -1,13 +1,13 @@
 import pygame
 
-from src.automata.board import Board
-from src.automata.cell import Cell
-from src.automata.cell import CellState
-from src.automata.variation_manager import VariationManager
-from src.config import IT_DELAY
-from src.config import MOUSECLICK_LEFT
-from src.gui.gui_manager import GuiManager
-from src.utils.accumulator import Accumulator
+from automata.board import Board
+from automata.cell import Cell
+from automata.cell import CellState
+from automata.variation_manager import VariationManager
+from config import IT_DELAY
+from config import MOUSECLICK_LEFT
+from gui.gui_manager import GuiManager
+from utils.accumulator import Accumulator
 
 
 class CellularAutomata:

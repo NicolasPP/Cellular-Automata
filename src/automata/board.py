@@ -3,8 +3,8 @@ import random
 
 import pygame
 
-from src.automata.cell import Cell
-from src.automata.cell import CellState
+from automata.cell import Cell
+from automata.cell import CellState
 
 BoardGrid: typing.TypeAlias = list[list[Cell]]
 

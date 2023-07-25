@@ -2,8 +2,8 @@ import enum
 
 import pygame
 
-from src.config import ALIVE_COLOR
-from src.config import DEAD_COLOR
+from config import ALIVE_COLOR
+from config import DEAD_COLOR
 
 
 class CellState(enum.Enum):

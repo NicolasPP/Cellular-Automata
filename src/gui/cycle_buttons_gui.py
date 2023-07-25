@@ -2,15 +2,15 @@ import typing
 
 import pygame
 
-from src.automata.variation_manager import VariationManager
-from src.config import ALIVE_COLOR
-from src.config import BLOCK_FONT
-from src.config import DEFAULT_PAD
-from src.config import HOVER_ALPHA
-from src.config import HOVER_COLOR
-from src.config import LEFT_ARROW
-from src.config import RIGHT_ARROW
-from src.config import TITLE_FONT_SIZE
+from automata.variation_manager import VariationManager
+from config import ALIVE_COLOR
+from config import BLOCK_FONT
+from config import DEFAULT_PAD
+from config import HOVER_ALPHA
+from config import HOVER_COLOR
+from config import LEFT_ARROW
+from config import RIGHT_ARROW
+from config import TITLE_FONT_SIZE
 
 
 class CollisionResult(typing.NamedTuple):
