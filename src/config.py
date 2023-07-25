@@ -12,6 +12,8 @@ DEFAULT_PAD: int = 15
 RIGHT_ARROW: str = ">"
 LEFT_ARROW: str = "<"
 MOUSECLICK_LEFT: int = 1
+HOVER_COLOR: tuple[int, int, int] = 255, 255, 255
+HOVER_ALPHA: int = 20
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"
