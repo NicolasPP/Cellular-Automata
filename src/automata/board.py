@@ -5,6 +5,7 @@ import pygame
 
 from automata.cell import Cell
 from automata.cell import CellState
+from config import BACKGROUND
 
 BoardGrid: typing.TypeAlias = list[list[Cell]]
 
@@ -20,6 +21,9 @@ class Board:
         possible_neighbours: list[tuple[int, int]] = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1),
                                                       (-1, -1)]
 
+        cols_offset: int = (container_width - (cols * cell_size)) // 2
+        rows_offset: int = (container_width - (rows * cell_size)) // 2
+
         for row in range(rows):
             grid_row: list[Cell] = []
             for col in range(cols):
@@ -30,8 +34,9 @@ class Board:
 
                     if 0 <= (row + y_offset) < rows and 0 <= (col + x_offset) < cols:
                         neighbours.append((col + x_offset, row + y_offset))
-
-                grid_row.append(Cell(col * cell_size, row * cell_size, cell_size, neighbours, container))
+                x: int = (col * cell_size) + cols_offset
+                y: int = (row * cell_size) + rows_offset
+                grid_row.append(Cell(x, y, cell_size, neighbours, container))
 
             board_grid.append(grid_row)
 
@@ -39,6 +44,7 @@ class Board:
 
     def __init__(self, rect: pygame.rect.Rect, cell_size: int) -> None:
         self.container: pygame.surface.Surface = pygame.surface.Surface(rect.size)
+        self.container.fill(BACKGROUND)
         self.grid: list[list[Cell]] = Board.create_grid(self.container, cell_size)
         self.cell_size: int = cell_size
         self.rect: pygame.rect.Rect = rect

@@ -1,4 +1,4 @@
-CELL_SIZE: int = 7
+CELL_SIZE: int = 11
 WINDOW_HEIGHT: int = 900
 WINDOW_WIDTH: int = 900
 IT_DELAY: float = 0.1  # seconds
