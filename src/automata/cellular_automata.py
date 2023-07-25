@@ -22,7 +22,6 @@ class Accumulator:
 
 class CellularAutomata:
     def __init__(self, board_rect: pygame.rect.Rect, cell_size: int) -> None:
-        VariationManager.load_rules()
         self.cell_size: int = cell_size
         self.board: Board = Board(board_rect, cell_size)
         self.iterate_board: bool = False
