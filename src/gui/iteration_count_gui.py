@@ -1,8 +1,9 @@
 import pygame
 
-from config import BLOCK_FONT
-from config import TITLE_FONT_SIZE
 from config import ALIVE_COLOR
+from config import BLOCK_FONT
+from config import DEFAULT_PAD
+from config import TITLE_FONT_SIZE
 
 
 class IterationCountGui:
@@ -13,6 +14,7 @@ class IterationCountGui:
 
     def draw(self) -> None:
         pos: pygame.rect.Rect = self.count_render.get_rect(bottomright=self.board_rect.topright)
+        pos.y -= DEFAULT_PAD
         pygame.display.get_surface().blit(self.count_render, pos)
 
     def update_counter(self, count: int) -> None:
