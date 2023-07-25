@@ -5,6 +5,7 @@ from src.automata.cell import Cell
 from src.automata.cell import CellState
 from src.automata.variation_manager import VariationManager
 from src.config import IT_DELAY
+from src.config import MOUSECLICK_LEFT
 from src.gui.gui_manager import GuiManager
 
 
@@ -30,8 +31,8 @@ class CellularAutomata:
 
     def draw(self) -> None:
         self.board.draw()
-        self.gui_manager.draw()
         pygame.display.get_surface().blit(self.board.container, self.board.rect)
+        self.gui_manager.draw()
 
     def iterate_switch(self) -> None:
         self.iterate_board = not self.iterate_board
@@ -53,6 +54,9 @@ class CellularAutomata:
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.board.pencil()
 
+            if event.button == MOUSECLICK_LEFT:
+                self.gui_manager.variation_title.handle_left_click()
+
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 self.iterate_switch()
@@ -62,9 +66,11 @@ class CellularAutomata:
 
             if event.key == pygame.K_RIGHT:
                 VariationManager.cycle(1)
+                self.gui_manager.variation_title.update_title()
 
             if event.key == pygame.K_LEFT:
                 VariationManager.cycle(-1)
+                self.gui_manager.variation_title.update_title()
 
             if event.key == pygame.K_c:
                 self.board.clear()

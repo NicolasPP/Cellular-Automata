@@ -27,7 +27,9 @@ def init() -> AppData:
     VariationManager.load_rules()
     board_rect: pygame.rect.Rect = pygame.rect.Rect(0, 0, *BOARD_SIZE)
     board_rect.center = pygame.display.get_surface().get_rect().center
-    return AppData(False, board_rect, CellularAutomata(board_rect, CELL_SIZE), 0.0, 0.0)
+    automata: CellularAutomata = CellularAutomata(board_rect, CELL_SIZE)
+    automata.gui_manager.variation_title.update_title()
+    return AppData(False, board_rect, automata, 0.0, 0.0)
 
 
 def main_loop(app_data: AppData) -> None:

@@ -8,6 +8,10 @@ ALIVE_COLOR: tuple[int, int, int] = 170, 79, 30
 DEAD_COLOR: tuple[int, int, int] = 35, 40, 49
 BLOCK_FONT: str = "data/fonts/FFFFORWA.TTF"
 TITLE_FONT_SIZE: int = 30
+DEFAULT_PAD: int = 15
+RIGHT_ARROW: str = ">"
+LEFT_ARROW: str = "<"
+MOUSECLICK_LEFT: int = 1
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"
