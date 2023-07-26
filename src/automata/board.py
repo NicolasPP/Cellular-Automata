@@ -80,6 +80,8 @@ class Board:
         if self.tool_size.get() == 2:
             for index_offset in IMMEDIATE_NEIGHBOURS:
                 c, r = index_offset
+                if col + c < 0 or col + c >= len(self.grid): continue
+                if row + r < 0 or row + r >= len(self.grid[0]): continue
                 cells_to_change.append(self.grid[col + c][row + r])
 
         for cell in cells_to_change:
@@ -122,6 +124,8 @@ class Board:
         if self.tool_size.get() == 2:
             for index_offset in IMMEDIATE_NEIGHBOURS:
                 c, r = index_offset
+                if col + c < 0 or col + c >= len(self.grid): continue
+                if row + r < 0 or row + r >= len(self.grid[0]): continue
                 cells_to_change.append(self.grid[col + c][row + r])
 
         for cell in cells_to_change:
