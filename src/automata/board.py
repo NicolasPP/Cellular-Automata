@@ -9,6 +9,11 @@ from config import BACKGROUND
 from config import CELL_HOVER_ALPHA
 from config import ALIVE_COLOR
 from config import DEAD_COLOR
+from config import PENCIL
+from config import ERASER
+from config import IMMEDIATE_NEIGHBOURS
+from utils.callback_vars import StrCB
+from utils.callback_vars import IntCB
 
 BoardGrid: typing.TypeAlias = list[list[Cell]]
 
@@ -21,9 +26,6 @@ class Board:
         container_width, container_height = container.get_rect().size
         cols: int = container_width // cell_size
         rows: int = container_height // cell_size
-        possible_neighbours: list[tuple[int, int]] = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1),
-                                                      (-1, -1)]
-
         cols_offset: int = (container_width - (cols * cell_size)) // 2
         rows_offset: int = (container_width - (rows * cell_size)) // 2
 
@@ -32,7 +34,7 @@ class Board:
             for col in range(cols):
                 neighbours: list[tuple[int, int]] = []
 
-                for offset in possible_neighbours:
+                for offset in IMMEDIATE_NEIGHBOURS:
                     x_offset, y_offset = offset
 
                     if 0 <= (row + y_offset) < rows and 0 <= (col + x_offset) < cols:
@@ -53,6 +55,8 @@ class Board:
         self.rect: pygame.rect.Rect = rect
         self.hover_surface: pygame.surface.Surface = pygame.surface.Surface((cell_size, cell_size))
         self.hover_surface.set_alpha(CELL_HOVER_ALPHA)
+        self.current_tool: StrCB = StrCB(PENCIL)
+        self.tool_size: IntCB = IntCB(2)
 
     def cells_gen(self) -> typing.Generator[Cell, None, None]:
         for grid_row in self.grid:
@@ -71,14 +75,21 @@ class Board:
         collision_index: tuple[int, int] | None = self.check_collision()
         if collision_index is None: return
         col, row = collision_index
-        cell: Cell = self.grid[col][row]
-        if cell.state is CellState.ALIVE:
-            self.hover_surface.fill(DEAD_COLOR)
+        cells_to_change: list[Cell] = [self.grid[col][row]]
 
-        elif cell.state is CellState.DEAD:
-            self.hover_surface.fill(ALIVE_COLOR)
+        if self.tool_size.get() == 2:
+            for index_offset in IMMEDIATE_NEIGHBOURS:
+                c, r = index_offset
+                cells_to_change.append(self.grid[col + c][row + r])
 
-        self.container.blit(self.hover_surface, cell.rect)
+        for cell in cells_to_change:
+            if cell.state is CellState.ALIVE:
+                self.hover_surface.fill(DEAD_COLOR)
+
+            elif cell.state is CellState.DEAD:
+                self.hover_surface.fill(ALIVE_COLOR)
+
+            self.container.blit(self.hover_surface, cell.rect)
 
     def check_collision(self) -> tuple[int, int] | None:
         x, y = pygame.mouse.get_pos()
@@ -93,11 +104,28 @@ class Board:
 
         return col, row
 
-    def pencil(self) -> None:
+    def modify(self) -> None:
         collide_index: tuple[int, int] | None = self.check_collision()
         if collide_index is None: return
         col, row = collide_index
-        self.grid[col][row].set_state(CellState.ALIVE)
+        cells_to_change: list[Cell] = [self.grid[col][row]]
+
+        if self.current_tool.get() == PENCIL:
+            new_state = CellState.ALIVE
+
+        elif self.current_tool.get() == ERASER:
+            new_state = CellState.DEAD
+
+        else:
+            raise Exception(f"tool name : {self.current_tool.get()} is not valid")
+
+        if self.tool_size.get() == 2:
+            for index_offset in IMMEDIATE_NEIGHBOURS:
+                c, r = index_offset
+                cells_to_change.append(self.grid[col + c][row + r])
+
+        for cell in cells_to_change:
+            cell.set_state(new_state)
 
     def get_alive_neighbours_count(self, cell: Cell) -> int:
         alive_neighbour_count: int = 0

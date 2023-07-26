@@ -56,13 +56,14 @@ class CellularAutomata:
 
     def handle_user_input(self, event: pygame.event.Event) -> None:
         if event.type == pygame.MOUSEBUTTONDOWN:
-            self.board.pencil()
+            self.board.modify()
 
             if event.button == MOUSECLICK_LEFT:
                 self.gui_manager.cycle_buttons.handle_left_click()
                 self.gui_manager.iteration_speed.handle_left_click(self.accumulator)
                 self.gui_manager.board_control.handle_left_click(self.rando, self.reset)
                 self.gui_manager.play_button.handle_left_click()
+                self.gui_manager.board_tools.handle_left_click(self.board.current_tool, self.board.tool_size)
 
     def reset(self) -> None:
         self.board.clear()

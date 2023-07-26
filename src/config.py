@@ -1,7 +1,15 @@
 CELL_SIZE: int = 6
 WINDOW_HEIGHT: int = 900
-WINDOW_WIDTH: int = 900
+SUB_SQUARE_COLOR: tuple[int, int, int] = 255, 255, 255
+WINDOW_WIDTH: int = 950
+PENCIL: str = "Pencil"
+ERASER: str = "Eraser"
 IT_DELAY: float = 0.1  # seconds
+SIZE_SQUARE_SIZE: int = 60
+SIZE_SUB_SQUARE_SIZE: int = 20
+TOOLS_FONT_SIZE: int = 15
+OUTLINE_COLOR: tuple[int, int, int] = 255, 255, 255
+IMMEDIATE_NEIGHBOURS: list[tuple[int, int]] = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)]
 BOARD_SIZE: tuple[int, int] = 700, 700
 BACKGROUND: tuple[int, int, int] = 27, 32, 39
 ALIVE_COLOR: tuple[int, int, int] = 170, 79, 30
