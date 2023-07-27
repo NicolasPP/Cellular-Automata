@@ -68,6 +68,7 @@ class CellularAutomata:
     def reset(self) -> None:
         self.board.clear()
         self.iteration_count = 0
+        self.accumulator.reset()
 
     def rando(self) -> None:
         self.board.randomise()

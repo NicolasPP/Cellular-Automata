@@ -27,8 +27,8 @@ CELL_HOVER_ALPHA: int = 100
 SPEED_STEP: float = 1.1
 RANDO: str = "rando"
 RESET: str = "reset"
-PLAY: str = "->"
-STOP: str = "| |"
+PLAY: str = ">"
+STOP: str = "||"
 
 # -- JSON --
 JSON_FILE_MODE: str = "r"
