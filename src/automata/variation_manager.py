@@ -1,3 +1,4 @@
+from __future__ import annotations
 import dataclasses
 import json
 
@@ -19,6 +20,9 @@ class AutomataVariation:
     birth: set[int]
     survival: set[int]
 
+    def __eq__(self, other: AutomataVariation) -> bool:
+        return self.birth == other.birth and self.survival == other.survival
+
 
 class VariationManager:
     variations: list[AutomataVariation] = []
@@ -34,9 +38,12 @@ class VariationManager:
             variations = json.load(variation_file)
 
         for variation in variations[DATA]:
-            VariationManager.variations.append(
-                AutomataVariation(variation[NAME], set(variation[BIRTH]), set(variation[SURVIVAL]))
-            )
+            automata_variation: AutomataVariation = AutomataVariation(variation[NAME], set(variation[BIRTH]),
+                                                                      set(variation[SURVIVAL]))
+            if automata_variation in VariationManager.variations:
+                print(f"variation {automata_variation.name} already exits")
+            else:
+                VariationManager.variations.append(automata_variation)
 
     @staticmethod
     def get_current_variation() -> AutomataVariation:
