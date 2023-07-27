@@ -13,8 +13,8 @@ python 3.11
 
 ### supported variations 
 
-* game of life
-* high life
+* Game of Life
+* High life
 * Seeds
 * Day and Night
 * Maze
@@ -24,17 +24,21 @@ python 3.11
 * Stains
 * Mazectric
 * Amoeba
-* Maze 2
 * Two by Two
 * Flakes
-* Stains 2
 * Walled Cities
 * Assimilation
 * Long Life
-* Sticks
 * Coagulation
 * Replicator
 * Pulsar
+* Gnarl
+* Fractal Weave
+* Dragon Curve
+* Square Grow
+* Koch Curve
+* Arrowhead Curve
+
 
 ---
 
