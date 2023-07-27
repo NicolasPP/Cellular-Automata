@@ -51,7 +51,7 @@ class VariationManager:
         return VariationManager.variations[VariationManager.get_index().get() % len(VariationManager.variations)]
 
     @staticmethod
-    def cycle(direction) -> None:
+    def cycle(direction: int) -> None:
         VariationManager.index.set(VariationManager.get_index().get() + (1 * direction))
 
     @staticmethod
