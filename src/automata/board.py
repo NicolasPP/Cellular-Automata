@@ -56,7 +56,7 @@ class Board:
         self.hover_surface: pygame.surface.Surface = pygame.surface.Surface((cell_size, cell_size))
         self.hover_surface.set_alpha(CELL_HOVER_ALPHA)
         self.current_tool: StrCB = StrCB(PENCIL)
-        self.tool_size: IntCB = IntCB(2)
+        self.tool_size: IntCB = IntCB(1)
 
     def cells_gen(self) -> typing.Generator[Cell, None, None]:
         for grid_row in self.grid:
