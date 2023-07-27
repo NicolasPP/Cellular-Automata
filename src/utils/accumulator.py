@@ -19,8 +19,6 @@ class Accumulator:
         average_frame_time: float = self.get_average_frame_duration()
         if limit < average_frame_time and self.limit > limit:
             return
-        print(self.get_average_frame_duration())
-        print(self.limit, "--> limit")
         self.limit = limit
 
     def get_limit(self) -> float:
