@@ -20,6 +20,7 @@ class CellularAutomata:
         self.gui_manager: GuiManager = GuiManager(self.board.rect, self.iterate_board)
         self._iteration_count: int = 0
         self.iteration_delay: float = IT_DELAY
+        self.left_mouse_button_hold: bool = False
 
     @property
     def iteration_count(self) -> int:
@@ -55,15 +56,24 @@ class CellularAutomata:
                 cell.set_state(CellState.ALIVE)
 
     def handle_user_input(self, event: pygame.event.Event) -> None:
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            self.board.modify()
+        if event.type == pygame.MOUSEBUTTONUP:
 
             if event.button == MOUSECLICK_LEFT:
+                self.left_mouse_button_hold = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+
+            if event.button == MOUSECLICK_LEFT:
+                self.left_mouse_button_hold = True
                 self.gui_manager.cycle_buttons.handle_left_click()
                 self.gui_manager.iteration_speed.handle_left_click(self.accumulator)
                 self.gui_manager.board_control.handle_left_click(self.rando, self.reset)
                 self.gui_manager.play_button.handle_left_click()
                 self.gui_manager.board_tools.handle_left_click(self.board.current_tool, self.board.tool_size)
+
+    def update(self) -> None:
+        if self.left_mouse_button_hold:
+            self.board.modify()
 
     def reset(self) -> None:
         self.board.clear()

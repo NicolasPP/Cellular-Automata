@@ -46,6 +46,7 @@ def main_loop(app_data: AppData) -> None:
             app_data.automata.handle_user_input(event)
 
         pygame.display.get_surface().fill(BACKGROUND)
+        app_data.automata.update()
         app_data.automata.draw()
         app_data.automata.iterate(app_data.delta_time)
         pygame.display.update()
