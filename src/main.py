@@ -1,4 +1,3 @@
-import dataclasses
 import time
 
 import pygame
@@ -12,47 +11,40 @@ from config import WINDOW_HEIGHT
 from config import WINDOW_WIDTH
 
 
-@dataclasses.dataclass
-class AppData:
-    done: bool
-    board_rect: pygame.rect.Rect
-    automata: CellularAutomata
-    prev_time: float
-    delta_time: float
+class App:
+    def __init__(self) -> None:
+        pygame.font.init()
+        VariationManager.load_rules()
+        pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.board_rect: pygame.rect.Rect = pygame.rect.Rect(0, 0, *BOARD_SIZE)
+        self.board_rect.center = pygame.display.get_surface().get_rect().center
+        self.automata: CellularAutomata = CellularAutomata(self.board_rect, CELL_SIZE)
+        self.automata.gui_manager.variation_title.update_title()
+        self.done: bool = False
+        self.prev_time: float = 0.0
+        self.delta_time: float = 0.0
 
+    def main_loop(self) -> None:
+        while not self.done:
+            now: float = time.time()
+            self.delta_time = now - self.prev_time
+            self.prev_time = now
 
-def init() -> AppData:
-    pygame.font.init()
-    pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    VariationManager.load_rules()
-    board_rect: pygame.rect.Rect = pygame.rect.Rect(0, 0, *BOARD_SIZE)
-    board_rect.center = pygame.display.get_surface().get_rect().center
-    automata: CellularAutomata = CellularAutomata(board_rect, CELL_SIZE)
-    automata.gui_manager.variation_title.update_title()
-    return AppData(False, board_rect, automata, 0.0, 0.0)
+            for event in pygame.event.get():
 
+                if event.type == pygame.QUIT:
+                    self.done = True
 
-def main_loop(app_data: AppData) -> None:
-    while not app_data.done:
-        now: float = time.time()
-        app_data.delta_time = now - app_data.prev_time
-        app_data.prev_time = now
+                self.automata.handle_user_input(event)
 
-        for event in pygame.event.get():
+            pygame.display.get_surface().fill(BACKGROUND)
+            self.automata.update()
+            self.automata.draw()
+            self.automata.iterate(self.delta_time)
+            pygame.display.update()
 
-            if event.type == pygame.QUIT:
-                app_data.done = True
-
-            app_data.automata.handle_user_input(event)
-
-        pygame.display.get_surface().fill(BACKGROUND)
-        app_data.automata.update()
-        app_data.automata.draw()
-        app_data.automata.iterate(app_data.delta_time)
-        pygame.display.update()
-
-    pygame.quit()
+        pygame.quit()
 
 
 if __name__ == "__main__":
-    main_loop(init())
+    App().main_loop()
