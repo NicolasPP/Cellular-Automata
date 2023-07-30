@@ -14,12 +14,10 @@ from utils.callback_vars import BoolCB
 class CellularAutomata:
     def __init__(self, board_rect: pygame.rect.Rect, cell_size: int) -> None:
         self.accumulator: Accumulator = Accumulator(IT_DELAY)
-        self.cell_size: int = cell_size
         self.board: Board = Board(board_rect, cell_size)
         self.iterate_board: BoolCB = BoolCB(False)
         self.gui_manager: GuiManager = GuiManager(self.board.rect, self.iterate_board)
         self._iteration_count: int = 0
-        self.iteration_delay: float = IT_DELAY
         self.left_mouse_button_hold: bool = False
 
     @property
