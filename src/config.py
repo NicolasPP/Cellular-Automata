@@ -1,10 +1,9 @@
-CELL_SIZE: int = 6
+CELL_SIZE: int = 8
 WINDOW_HEIGHT: int = 900
-SUB_SQUARE_COLOR: tuple[int, int, int] = 255, 255, 255
 WINDOW_WIDTH: int = 950
 PENCIL: str = "Pencil"
 ERASER: str = "Eraser"
-IT_DELAY: float = 0.1  # seconds
+IT_DELAY: float = 0.5  # seconds
 SIZE_SQUARE_SIZE: int = 60
 SIZE_SUB_SQUARE_SIZE: int = 20
 TOOLS_FONT_SIZE: int = 15
